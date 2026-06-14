@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="screen-title">
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <main class="title-wrap">
+    <h1 class="logo" id="logo" aria-label="Nexus Academy"></h1>
+    <p class="tagline">Ten duels. Every win is earned with your mind.</p>
+
+    <div class="card code-card">
+      <label class="field-label" for="codeInput">Access code</label>
+      <input id="codeInput" class="code-input" type="text" maxlength="6" placeholder="NX7K4A" autocomplete="off" spellcheck="false" inputmode="text" />
+      <p class="hint" id="codeHint">No email, no login — just your access code.</p>
+
+      <div class="btn-row">
+        <button id="startBtn" class="btn btn-primary">Start</button>
+        <button id="newBtn" class="btn btn-ghost">New code</button>
+      </div>
+    </div>
+
+    <!-- Saved codes the player can switch between -->
+    <div class="card saves-card" id="savesCard" style="display:none;margin-top:1rem">
+      <label class="field-label">Your saves</label>
+      <div class="saves-list" id="savesList"></div>
+    </div>
+
+    <p class="footnote">Progress saves to this device against your access code.</p>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script src="js/sfx.js"></script>
+  <script src="js/fx.js"></script>
+  <script>
+    (function () {
+      const input = document.getElementById('codeInput');
+      const hint = document.getElementById('codeHint');
+      const startBtn = document.getElementById('startBtn');
+      const newBtn = document.getElementById('newBtn');
+      const savesCard = document.getElementById('savesCard');
+      const savesList = document.getElementById('savesList');
+
+      // Assemble the title letter-by-letter.
+      (function buildLogo(){
+        const logo=document.getElementById('logo'); if(!logo)return;
+        function line(word, cls, base){ const ln=document.createElement('span'); ln.className='line '+cls;
+          word.split('').forEach((ch,i)=>{ const sp=document.createElement('span'); sp.className='ltr'; sp.textContent=ch; sp.style.animationDelay=(base+i*0.05)+'s'; ln.appendChild(sp); }); return ln; }
+        logo.appendChild(line('NEXUS','one',0.1));
+        logo.appendChild(line('ACADEMY','two',0.4));
+      })();
+
+      const saved = NEXUS.getCode();
+      if (saved) input.value = saved;
+
+      input.addEventListener('input', () => { input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); });
+
+      // Go to the tutorial on first ever play, otherwise straight to the map.
+      function enter() { NEXUS.fx.pageTransition(NEXUS.tutorialDone() ? 'map.html' : 'tutorial.html'); }
+
+      startBtn.addEventListener('click', () => {
+        const code = input.value.trim().toUpperCase();
+        if (code.length !== 6) { hint.textContent = 'Enter a 6-character code, or tap "New code".'; hint.classList.add('hint-warn'); input.focus(); return; }
+        NEXUS.setCode(code); NEXUS.ensureProgress(code); enter();
+      });
+
+      newBtn.addEventListener('click', () => {
+        const code = NEXUS.genCode(); input.value = code; NEXUS.setCode(code); NEXUS.ensureProgress(code);
+        hint.textContent = 'New code: ' + code + ' — write it down, then Start.'; hint.classList.remove('hint-warn');
+        renderSaves();
+      });
+
+      input.addEventListener('keydown', (e) => { if (e.key === 'Enter') startBtn.click(); });
+
+      // Render the list of saved codes with Load + delete.
+      function renderSaves() {
+        const codes = NEXUS.getCodes();
+        if (!codes.length) { savesCard.style.display = 'none'; return; }
+        savesCard.style.display = 'block';
+        savesList.innerHTML = '';
+        codes.forEach(c => {
+          const row = document.createElement('div'); row.className = 'save-row';
+          const done = NEXUS.completedCount(c);
+          const load = document.createElement('button'); load.className = 'btn btn-ghost save-load';
+          load.innerHTML = '<span class="save-code">' + c + '</span><span class="save-prog">' + done + '/10 cleared</span>';
+          load.addEventListener('click', () => { NEXUS.setCode(c); NEXUS.ensureProgress(c); enter(); });
+          const del = document.createElement('button'); del.className = 'save-del'; del.textContent = '✕'; del.title = 'Delete save';
+          del.addEventListener('click', () => { if (confirm('Delete save ' + c + '? This cannot be undone.')) { NEXUS.removeCode(c); renderSaves(); } });
+          row.appendChild(load); row.appendChild(del); savesList.appendChild(row);
+        });
+      }
+
+      renderSaves();
+      NEXUS.spawnParticles();
+    })();
+  </script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

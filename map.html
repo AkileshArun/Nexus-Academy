@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Academy — Gate Road</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <h2>Gate Road</h2>
+    <div class="right">
+      <span class="score-pill" id="scorePill">⬡ 0</span>
+      <span class="code-pill" id="codePill">------</span>
+      <button class="btn btn-ghost icon-btn" id="soundBtn" title="Sound">🔊</button>
+      <button class="btn btn-ghost" id="howToPlay">How to play</button>
+      <button class="btn btn-ghost" id="backToTitle">Back to title</button>
+    </div>
+  </header>
+
+  <main class="map-wrap">
+    <p class="map-intro">Tap a gate to read its story, then begin. Clear a gate to unlock the next.</p>
+    <div class="road" id="road"><!-- nodes injected by map.js --></div>
+  </main>
+
+  <!-- Episode description modal -->
+  <div class="modal" id="nodeModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-art" id="modalArt"></div>
+      <div class="modal-body">
+        <div class="modal-eyebrow" id="modalEyebrow">Episode</div>
+        <h3 class="modal-title" id="modalTitle">Title</h3>
+        <div class="modal-vs" id="modalVs">Hero vs Villain</div>
+        <p class="modal-blurb" id="modalBlurb"></p>
+        <div class="chips" id="modalChips"></div>
+        <div id="modalActions"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/sfx.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

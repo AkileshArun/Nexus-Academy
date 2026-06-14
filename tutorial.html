@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Academy — How to Play</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <h2>How to Play</h2>
+    <div class="right"><button class="btn btn-ghost" id="skipBtn">Skip</button></div>
+  </header>
+
+  <!-- A mock of the real screens the coachmarks point at -->
+  <main class="tut-wrap">
+    <div class="tut-mock">
+      <div class="mock-node" id="m-node"><span>1</span></div>
+      <div class="mock-grid" id="m-grid">
+        <div class="mock-panel done"></div><div class="mock-panel"></div><div class="mock-panel"></div>
+        <div class="mock-panel"></div><div class="mock-panel"></div><div class="mock-panel"></div>
+      </div>
+      <div class="mock-boss" id="m-boss">BOSS</div>
+      <div class="mock-pill" id="m-pill">NX7K4A</div>
+    </div>
+  </main>
+
+  <!-- Coachmark layer -->
+  <div class="coach" id="coach">
+    <div class="coach-ring" id="coachRing"></div>
+    <div class="coach-card" id="coachCard">
+      <div class="coach-step" id="coachStep">1 / 4</div>
+      <div class="coach-text" id="coachText"></div>
+      <div class="coach-actions">
+        <button class="btn btn-ghost" id="coachSkip">Skip</button>
+        <button class="btn btn-accent" id="coachNext">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/sfx.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/tutorial.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>

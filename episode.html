@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Academy — Episode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <h2 id="epTitle">Episode</h2>
+    <div class="right">
+      <span class="score-pill" id="scorePill">⬡ 0</span>
+      <span class="code-pill" id="codePill">------</span>
+      <button class="btn btn-ghost icon-btn" id="soundBtn" title="Sound">🔊</button>
+      <button class="btn btn-ghost" id="backToMap">Back to map</button>
+    </div>
+  </header>
+
+  <main class="episode-wrap">
+    <div class="page-head">
+      <p class="sub" id="epSub">Tap an open panel to play its challenge.</p>
+      <div class="progress-line"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="comic-grid" id="comicGrid"><!-- panels injected by episode.js --></div>
+  </main>
+
+  <!-- Mini-game overlay -->
+  <div class="overlay" id="minigameOverlay" role="dialog" aria-modal="true">
+    <div class="mg-frame">
+      <div class="mg-head">
+        <span class="mg-name" id="mgName">Mini-game</span>
+        <button class="mg-close" id="mgClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="mg-pubar" id="mgPubar"></div>
+      <div class="mg-body" id="mgBody"><!-- mini-game renders here --></div>
+    </div>
+  </div>
+
+  <!-- Cutscene overlay -->
+  <div class="overlay" id="cutsceneOverlay" role="dialog" aria-modal="true">
+    <div class="mg-frame">
+      <div class="mg-body cutscene" id="cutBody"><!-- cutscene renders here --></div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/sfx.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/minigames.js"></script>
+  <script src="js/episode.js"></script>
+  <script src="js/chatbot.js"></script>
+</body>
+</html>
